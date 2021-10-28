@@ -29,7 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/toLogin").permitAll()
                         .anyRequest().authenticated();
 
-        http.formLogin().loginPage("/toLogin");
+        http.formLogin()
+                .loginPage("/toLogin")
+                    .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/success");
+
 
         http.csrf().disable();
 

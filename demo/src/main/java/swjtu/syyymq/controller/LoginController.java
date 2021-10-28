@@ -17,4 +17,9 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping("/success")
+    public String passLogin(){
+        return "dashboard";
+    }
+
 }

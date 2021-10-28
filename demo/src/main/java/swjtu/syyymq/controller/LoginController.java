@@ -4,11 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/user")
 public class LoginController {
 
-    @PostMapping("/login")
-    public String login(){
-        return "dashboard";
+    @RequestMapping({"/","/index"})
+    public String index(){
+        return "index";
     }
+
+    @RequestMapping("/toLogin")
+    public String login(){
+        return "login";
+    }
+
 }

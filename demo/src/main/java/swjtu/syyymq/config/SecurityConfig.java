@@ -10,13 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.service.UserService;
 
 import java.util.List;
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -26,11 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login");
+                .antMatchers("/","/toLogin").permitAll()
+                        .anyRequest().authenticated();
+
+        http.formLogin().loginPage("/toLogin");
 
         http.csrf().disable();
 
@@ -46,9 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("admin").password(new BCryptPasswordEncoder().encode("123")).roles("")
+                .withUser("admin").password(new BCryptPasswordEncoder().encode("123")).roles("user","common")
                 .and()
-                .withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("");
+                .withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("admin","common");
     }
 
 }

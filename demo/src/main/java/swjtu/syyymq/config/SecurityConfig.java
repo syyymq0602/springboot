@@ -26,7 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                // 放行主界面和登录界面
                 .antMatchers("/","/toLogin").permitAll()
+                // 放行静态资源
+                .antMatchers("/css/**","/js/**","/images/**").permitAll()
+                // 根据授权访问对应资源
+                .antMatchers("/admin/**").hasRole("admin")
+                .antMatchers("/root/**").hasRole("root")
                         .anyRequest().authenticated();
 
         http.formLogin()
@@ -49,9 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("admin").password(new BCryptPasswordEncoder().encode("123")).roles("user","common")
+                .withUser("admin").password(new BCryptPasswordEncoder().encode("123")).roles("admin")
                 .and()
-                .withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("admin","common");
+                .withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("root");
     }
 
 }

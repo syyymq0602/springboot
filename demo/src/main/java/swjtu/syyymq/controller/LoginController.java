@@ -1,19 +1,21 @@
 package swjtu.syyymq.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 //@RequestMapping("/user")
-@CrossOrigin
 public class LoginController {
 
     @RequestMapping({"/","/index"})
+    @ApiOperation("欢迎界面")
     public String index(){
         return "index";
     }
 
     @RequestMapping("/toLogin")
+    @ApiOperation("登录界面")
     public String login(){
         return "login";
     }

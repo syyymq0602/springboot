@@ -1,16 +1,107 @@
 package swjtu.syyymq.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class User implements Serializable {
-    private int id;
+public class User implements UserDetails {
+
+    private Integer id;
     private String username;
     private String password;
+    private Boolean enabled;
+    private Boolean locked;
+    private Boolean expired;
+    private Boolean credentialsExpire;
+
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setExpired(Boolean expired) {
+        this.expired = expired;
+    }
+
+    public void setCredentialsExpire(Boolean credentialsExpire) {
+        this.credentialsExpire = credentialsExpire;
+    }
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    @Override
+    // 返回用户的所有角色
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getNameEN()));
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    // 账户是否过期
+    public boolean isAccountNonExpired() {
+        return expired;
+    }
+
+    @Override
+    // 账户是否被锁定
+    public boolean isAccountNonLocked() {
+        return locked;
+    }
+
+    @Override
+    // 凭证是否过期
+    public boolean isCredentialsNonExpired() {
+        return credentialsExpire;
+    }
+
+    @Override
+    // 账户是否可用
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

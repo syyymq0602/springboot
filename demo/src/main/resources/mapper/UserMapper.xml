@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="swjtu.syyymq.mapper.UserMapper">
+
+    <resultMap id="userRoleMap" type="user">
+        <id property="id" column="userId"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="enabled" column="enabled"></result>
+        <result property="locked" column="locked"></result>
+        <result property="expired" column="expired"></result>
+        <result property="credentialsExpire" column="credentialsExpire"></result>
+        <collection property="roles" ofType="role" javaType="ArrayList">
+            <id property="id" column="roleId"></id>
+            <result property="nameEN" column="nameEN"></result>
+            <result property="nameZh" column="nameZh"></result>
+        </collection>
+    </resultMap>
+
     <select id="findByUsername" resultType="User" parameterType="String">
         SELECT * FROM user where username = #{username}
     </select>
 
-    <select id="findAll" resultType="User">
-        select * from user
+    <select id="findAll" resultMap="userRoleMap">
+        select u.*,r.*,u.id userId,r.id roleId from user u,role r,user_role ur where uid=u.id and rid=r.id
+    </select>
+
+    <select id="getUserRoleById" resultType="Role" parameterType="int">
+        select r.* from user_role ur ,role r where ur.uid = #{id} and ur.rid = r.id
     </select>
 </mapper>

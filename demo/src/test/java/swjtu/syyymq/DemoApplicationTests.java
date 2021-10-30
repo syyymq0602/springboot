@@ -25,4 +25,11 @@ class DemoApplicationTests {
         System.out.println(userService.findByUsername(name));
     }
 
+    @Test
+    void test_getUserRoleById(){
+        String name = "root";
+        User user = userService.getUserRoleById(name);
+        System.out.println(user);
+    }
+
 }

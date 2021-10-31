@@ -26,10 +26,9 @@ public class LoginController {
     }
 
 
-    @GetMapping("/admin/{id}")
-    @ResponseBody
-    public String test1(@PathVariable("id") String id){
-        return "admin"+id;
+    @GetMapping("/test")
+    public String test1(){
+        return "test";
     }
 
     @GetMapping("/root/{id}")

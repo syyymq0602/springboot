@@ -1,64 +1,100 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.80.0">
-    <title>Signin Template · Bootstrap v4.6</title>
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="author" content="PIXINVENT">
+  <title>管理后台</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+	
+<script th:src="@{/assets/js/jquery.js}"></script>
+<script th:src="@{/assets/js/jquery.magnific-popup.js}" type="text/javascript"></script>
+<link rel="stylesheet" th:href="@{/assets/css/login.css}">
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}">
 
-    
+<link th:href="@{/assets/css/popup-box.css}" rel="stylesheet" type="text/css" media="all"/>
+<script>
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    $(document).ready(function() {
+      $('.popup-with-zoom-anim').magnificPopup({
+          type: 'inline',
+          fixedContentPos: false,
+          fixedBgPos: true,
+          overflowY: 'auto',
+          closeBtnInside: true,
+          preloader: false,
+          midClick: true,
+          removalDelay: 300,
+          mainClass: 'my-mfp-zoom-in'
+      });
+    });
 
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link th:href="@{/css/signin.css}" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    
-    <form class="form-signin" th:action="@{/login}" method="post">
-      <img class="mb-4" th:src="@{/images/bootstrap-solid.svg}" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}"></h1>
-      <!--msg为空则不显示消息-->
-<!--      <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>-->
-      <input type="text" name="username" class="form-control" th:placeholder="#{login.username}" required autofocus>
-      <input type="password" name="password" class="form-control" th:placeholder="#{login.password}" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" th:text="#{login.remember}">
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}"></button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
-      <a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-      <a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
+</script>
+</head>
+<body>
+	
+	<section class="canvas-wrap">
+	<div id="canvas" class="gradient"></div>
+</section>
+	
+<div style="position:absolute; z-index:100;">
+	
+<h1>管理后台</h1>
+<div class="w3layouts">
+  <div class="signin-agile">
+    <h2 th:text="#{login.tip}"></h2>
+    <form th:action="@{/login}" method="post">
+      <input type="text" name="name" class="name" th:placeholder="#{login.username}" required="">
+      <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="">
+      <ul>
+        <li>
+          <input type="checkbox" id="brand1" value="">
+          <label for="brand1"><span></span>333</label>
+        </li>
+      </ul>
+      <a href="#">忘记密码?</a><br>
+      <div class="clear"></div>
+      <input type="submit" th:value="#{login.btn}">
     </form>
+  </div>
+  <div class="signup-agileinfo">
+    <h3>用户注册</h3>
+    <p>Phasellus vel urna magna. Quisque molestie felis varius ex faucibus auctor. Aenean sit amet erat ullamcorper, condimentum odio in, commodo tellus.</p>
+    <div class="more"> <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">现在注册</a> </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="footer-w3l">
+  <p class="agileinfo"> &copy; 2016 Sign In And Sign Up Forms . All Rights Reserved | Design by <a href="https://shop303982252.taobao.com">源代码设计</a></p>
+  <div class="changeLanguage" style="text-align: center">
+    <a class="btn btn-sm" th:href="@{/login.html(l='zh_CN')}" style="color:white;font-family: 'Times New Roman';font-size: 15px">中文</a>
+    <a class="btn btn-sm" th:href="@{/login.html(l='en_US')}" style="color:white;font-family: 'Times New Roman';font-size: 15px">English</a>
+  </div>
+</div>
+	
+</div>
+	 
+	 
+	 
+<div class="pop-up">
+  <div id="small-dialog" class="mfp-hide book-form">
+    <h3>注册信息</h3>
+    <form action="#" method="post">
+      <input type="text" name="Name" placeholder="名字" required=""/>
+      <input type="text" name="Email" class="email" placeholder="邮件地址" required=""/>
+      <input type="password" name="Password" class="password" placeholder="密码" required=""/>
+      <input type="password" name="Password" class="password" placeholder="确认密码" required=""/>
+      <input type="submit" value="注册">
+    </form>
+  </div>
+</div>
+<script th:src="@{/assets/bgjs/three.min.js}"></script>
+<script th:src="@{/assets/bgjs/projector.js}"></script>
+<script th:src="@{/assets/bgjs/canvas-renderer.js}"></script>
+<script th:src="@{/assets/bgjs/3d-lines-animation.js}"></script>
 
-
-    
-  </body>
+<script th:src="@{/assets/bgjs/color.js}"></script>
+	
+</body>
 </html>

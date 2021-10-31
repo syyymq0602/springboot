@@ -26,9 +26,9 @@ public class LoginController {
     }
 
 
-    @GetMapping("/test")
+    @GetMapping("/login2")
     public String test1(){
-        return "test";
+        return "login2";
     }
 
     @GetMapping("/root/{id}")

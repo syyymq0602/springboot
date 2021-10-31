@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import swjtu.syyymq.service.CustomUserService;
 
@@ -21,6 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 链式编程
     // 授权
+    // 放行部分资源，定义登陆校验页以及登陆成功跳转
+    // 关闭csrf保护
+    // 定义注销后默认跳转到登录页
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -36,21 +39,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/toLogin")
                     .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/toLogin");
+                        .defaultSuccessUrl("/success");
 
 
         http.csrf().disable();
 
-        http.logout().logoutSuccessUrl("/");
+        http.logout().logoutSuccessUrl("/toLogin");
     }
 
     @Override
+    // 注册自定义登录验证逻辑
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService);
     }
 
     @Bean
+    // 使Security内部默认使用BCrypt加密解密
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

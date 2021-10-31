@@ -1,12 +1,17 @@
 package swjtu.syyymq.controller;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import swjtu.syyymq.entity.User;
+import swjtu.syyymq.mapper.UserMapper;
 
 @Controller
-//@RequestMapping("/user")
 public class LoginController {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @RequestMapping({"/","/index"})
     @ApiOperation("欢迎界面")
@@ -14,7 +19,7 @@ public class LoginController {
         return "index";
     }
 
-    @RequestMapping("/toLogin")
+    @GetMapping("/toLogin")
     @ApiOperation("登录界面")
     public String login(){
         return "login";
@@ -23,6 +28,17 @@ public class LoginController {
     @RequestMapping("/success")
     public String passLogin(){
         return "dashboard";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String doRegister(User user){
+        userMapper.save(user);
+        return "index";
     }
 
     @GetMapping("/admin/{id}")

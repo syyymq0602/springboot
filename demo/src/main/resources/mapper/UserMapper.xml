@@ -28,4 +28,9 @@
     <select id="getUserRoleById" resultType="Role" parameterType="int">
         select r.* from user_role ur ,role r where ur.uid = #{id} and ur.rid = r.id
     </select>
+
+    <insert id="save" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+        insert into user(username,password,enabled,locked,expired,credentialsExpire)
+        values (#{username},#{password},#{enabled},#{locked},#{expired},#{credentialsExpire})
+    </insert>
 </mapper>

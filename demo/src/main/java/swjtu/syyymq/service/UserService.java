@@ -11,4 +11,6 @@ public interface UserService {
     User findByUsername(String name);
 
     User getUserRoleById(String username);
+
+    void insert(User user);
 }

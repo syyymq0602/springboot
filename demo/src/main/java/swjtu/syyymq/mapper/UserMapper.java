@@ -15,4 +15,6 @@ public interface UserMapper {
 
     List<Role> getUserRoleById(Integer id);
 
+    void save(User user);
+
 }

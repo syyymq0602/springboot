@@ -34,4 +34,21 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userMapper.getUserRoleById(user.getId()));
         return user;
     }
+
+    @Override
+    public void insert(User user) {
+        String username = user.getUsername();
+        if(exist(username)){
+            throw new RuntimeException("用户名已存在！");
+        }
+        userMapper.save(user);
+    }
+
+    /**
+     * 判断用户是否存在
+     */
+    private boolean exist(String username){
+        User userDO = userMapper.findByUsername(username);
+        return (userDO != null);
+    }
 }

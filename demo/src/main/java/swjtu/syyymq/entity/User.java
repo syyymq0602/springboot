@@ -1,6 +1,8 @@
 package swjtu.syyymq.entity;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,16 +12,15 @@ import java.util.Collection;
 import java.util.List;
 
 
-@Data
 public class User implements UserDetails {
 
     private Integer id;
     private String username;
     private String password;
-    private Boolean enabled;
-    private Boolean locked;
-    private Boolean expired;
-    private Boolean credentialsExpire;
+    private Boolean enabled = true;
+    private Boolean locked = false;
+    private Boolean expired = false;
+    private Boolean credentialsExpire = false;
 
     private List<Role> roles;
 
@@ -62,7 +63,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    // 返回用户的所有角色
+    // 自动授予用户权限
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
         for (Role role : roles) {
@@ -84,19 +85,19 @@ public class User implements UserDetails {
     @Override
     // 账户是否过期
     public boolean isAccountNonExpired() {
-        return expired;
+        return !expired;
     }
 
     @Override
     // 账户是否被锁定
     public boolean isAccountNonLocked() {
-        return locked;
+        return !locked;
     }
 
     @Override
     // 凭证是否过期
     public boolean isCredentialsNonExpired() {
-        return credentialsExpire;
+        return !credentialsExpire;
     }
 
     @Override

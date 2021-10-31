@@ -35,9 +35,6 @@ public class RegisterController {
     @Value("${mail.fromMail.sender}")
     private String sender;
 
-    @Value("${mail.fromMail.receiver}")
-    private String receiver;
-
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -65,7 +62,6 @@ public class RegisterController {
             String hash =  MD5Utils.code(register.getIdentify());//生成MD5值
             if (requestHash.equalsIgnoreCase(hash)){
                 //校验成功
-                attributes.addFlashAttribute("m", "恭喜！现在，你可以登录你的用户名。");
                 User user = new User();
                 user.setUsername(register.getUsername());
                 user.setPassword(new BCryptPasswordEncoder().encode(register.getPassword()).trim());
@@ -73,13 +69,11 @@ public class RegisterController {
                 return "redirect:/toLogin";
             }else {
                 //验证码不正确，校验失败
-                System.out.println("校验失败");
                 attributes.addFlashAttribute("message", "验证码输入不正确");
                 return "redirect:/register";
             }
         } else {
             // 超时
-            System.out.println("超时");
             attributes.addFlashAttribute("message", "验证码已过期");
             return "redirect:/register";
         }
@@ -108,6 +102,7 @@ public class RegisterController {
         }
     }
 
+    // 确定验证码是否正确
     private String VerifyCode(){
         Random r = new Random();
         StringBuilder sb =new StringBuilder();
@@ -118,7 +113,7 @@ public class RegisterController {
         return sb.toString();
     }
 
-    //保存验证码和时间
+    // 保存验证码和时间
     private void saveCode(String code){
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar c = Calendar.getInstance();

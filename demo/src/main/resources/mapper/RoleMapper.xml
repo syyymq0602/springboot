@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="swjtu.syyymq.mapper.RoleMapper">
+    <insert id="add" parameterType="role">
+        insert into role(id,nameEN,nameZH) values (null,#{nameEN},#{nameZH})
+    </insert>
+
+    <update id="update" parameterType="role">
+        update role set nameEN=#{nameEN},nameZH=#{nameZH} where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from role where id=#{id}
+    </delete>
+
+    <select id="findAll" resultType="role">
+        select * from role
+    </select>
+</mapper>

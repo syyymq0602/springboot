@@ -168,7 +168,7 @@ input[type="submit"]:hover{
 /*--pop-up--*/
 .pop-up{}
 a.book.popup-with-zoom-anim.button-isi.zoomIn.animated {
-   border:1px solid #fff;
+	border:1px solid #fff;
     padding: 8px 34px;
     color:#fff;
 	display:inline-block;

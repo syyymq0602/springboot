@@ -38,7 +38,7 @@
 	<div id="canvas" class="gradient"></div>
 </section>
 	
-<div style="position:absolute; z-index:100;">
+<div style="position:absolute; z-index:100; width: 100%">
 	
 <h1>管理后台</h1>
 <div class="w3layouts">
@@ -47,29 +47,30 @@
     <form th:action="@{/login}" method="post">
       <input type="text" name="name" class="name" th:placeholder="#{login.username}" required="">
       <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="">
-      <ul>
-        <li>
-          <input type="checkbox" id="brand1" value="">
-          <label for="brand1"><span></span>333</label>
-        </li>
-      </ul>
-      <a href="#">忘记密码?</a><br>
+      <div>
+        <input type="checkbox" id="brand1" name="remember" th:text="' '+#{login.remember}">
+        <a href="#" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
+      </div>
       <div class="clear"></div>
       <input type="submit" th:value="#{login.btn}">
     </form>
   </div>
   <div class="signup-agileinfo">
-    <h3>用户注册</h3>
-    <p>Phasellus vel urna magna. Quisque molestie felis varius ex faucibus auctor. Aenean sit amet erat ullamcorper, condimentum odio in, commodo tellus.</p>
-    <div class="more"> <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">现在注册</a> </div>
+    <h3 th:text="#{login.register}"></h3>
+    <div >
+      <p th:text="#{login.registerMessage}"></p>
+    </div>
+    <div class="more">
+      <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog" th:text="#{login.registerNow}"></a>
+    </div>
   </div>
   <div class="clear"></div>
 </div>
 <div class="footer-w3l">
-  <p class="agileinfo"> &copy; 2016 Sign In And Sign Up Forms . All Rights Reserved | Design by <a href="https://shop303982252.taobao.com">源代码设计</a></p>
+  <p class="agileinfo"> &copy; 2018 Sign In And Sign Up Forms . All Rights Reserved | Design by <a href="https://shop303982252.taobao.com">源代码设计</a></p>
   <div class="changeLanguage" style="text-align: center">
-    <a class="btn btn-sm" th:href="@{/login.html(l='zh_CN')}" style="color:white;font-family: 'Times New Roman';font-size: 15px">中文</a>
-    <a class="btn btn-sm" th:href="@{/login.html(l='en_US')}" style="color:white;font-family: 'Times New Roman';font-size: 15px">English</a>
+    <a class="btn btn-sm" th:href="@{/login(l='zh_CN')}" style="color:white;font-size: 15px">中文</a>
+    <a class="btn btn-sm" th:href="@{/login(l='en_US')}" style="color:white;font-size: 15px">English</a>
   </div>
 </div>
 	

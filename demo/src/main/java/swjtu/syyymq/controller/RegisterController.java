@@ -18,12 +18,12 @@ import swjtu.syyymq.dto.RegisterDto;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.UserMapper;
 import swjtu.syyymq.utils.MD5Utils;
+import swjtu.syyymq.utils.RandomUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 @Controller
 public class RegisterController {
@@ -81,9 +81,9 @@ public class RegisterController {
 
     @RequestMapping("/sendEmail")
     @ResponseBody
-    public String sendEmail(String email){
+    public String sendEmail(String email) throws Exception {
         SimpleMailMessage message = new SimpleMailMessage();
-        String code = VerifyCode();    //随机数生成6位验证码
+        int code = RandomUtils.getRandom(6);    //随机数生成6位验证码
         message.setFrom(sender);
         message.setTo(email);
         message.setSubject("博客系统");// 标题
@@ -91,7 +91,7 @@ public class RegisterController {
         try {
             javaMailSender.send(message);
             logger.info("文本邮件发送成功！");
-            saveCode(code);
+            saveCode(Integer.toString(code));
             return "success";
         }catch (MailSendException e){
             logger.error("目标邮箱不存在");
@@ -102,18 +102,10 @@ public class RegisterController {
         }
     }
 
-    // 确定验证码是否正确
-    private String VerifyCode(){
-        Random r = new Random();
-        StringBuilder sb =new StringBuilder();
-        for(int i = 0;i < 6;i ++){
-            int ran1 = r.nextInt(10);
-            sb.append(ran1);
-        }
-        return sb.toString();
-    }
-
-    // 保存验证码和时间
+    /**
+     * 保存生成的验证码和过期时间
+     * @param code 生成的随机数
+     */
     private void saveCode(String code){
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar c = Calendar.getInstance();

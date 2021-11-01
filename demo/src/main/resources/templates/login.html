@@ -45,8 +45,8 @@
   <div class="signin-agile">
     <h2 th:text="#{login.tip}"></h2>
     <form th:action="@{/login}" method="post">
-      <input type="text" name="name" class="name" th:placeholder="#{login.username}" required="">
-      <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="">
+      <input type="text" name="username" class="name" th:placeholder="#{login.username}" required="required">
+      <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="required">
       <div>
         <input type="checkbox" id="brand1" name="remember" th:text="' '+#{login.remember}">
         <a href="#" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
@@ -61,7 +61,7 @@
       <p th:text="#{login.registerMessage}"></p>
     </div>
     <div class="more">
-      <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog" th:text="#{login.registerNow}"></a>
+      <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" onclick="func()" th:text="#{login.registerNow}"></a>
     </div>
   </div>
   <div class="clear"></div>
@@ -96,6 +96,11 @@
 <script th:src="@{/assets/bgjs/3d-lines-animation.js}"></script>
 
 <script th:src="@{/assets/bgjs/color.js}"></script>
+<script th:inline="javascript">
+  let func = () => {
+    window.location.href = /*[[@{/register}]]*/ null;
+  }
+</script>
 	
 </body>
 </html>

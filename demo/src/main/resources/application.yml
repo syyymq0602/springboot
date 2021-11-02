@@ -19,7 +19,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 3189699338@qq.com
-    password: bbb
+    password: smaercrdxgquddjh
     default-encoding: UTF-8
 
 mybatis:

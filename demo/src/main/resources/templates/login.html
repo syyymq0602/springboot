@@ -49,7 +49,7 @@
       <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="required">
       <div>
         <input type="checkbox" id="brand1" name="remember" th:text="' '+#{login.remember}">
-        <a href="#" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
+        <a th:href="@{/forget}" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
       </div>
       <div class="clear"></div>
       <input type="submit" th:value="#{login.btn}">

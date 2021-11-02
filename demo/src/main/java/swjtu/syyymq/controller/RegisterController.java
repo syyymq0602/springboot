@@ -23,16 +23,20 @@ import java.util.Map;
 
 @Controller
 public class RegisterController {
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    @Autowired
-    private MailService mailService;
+    private final MailService mailService;
 
     private final Map<String, Object> resultMap = new HashMap<>();
 
     @Value("${mail.fromMail.expiredTime}")
     private int expiredTime;
+
+    @Autowired
+    public RegisterController(UserMapper userMapper, MailService mailService) {
+        this.userMapper = userMapper;
+        this.mailService = mailService;
+    }
 
     @GetMapping("/register")
     public String register(){
@@ -100,7 +104,7 @@ public class RegisterController {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MINUTE, expiredTime);
         String currentTime = sf.format(c.getTime());// 生成3分钟后时间，用户校验是否过期
-        String hash =  MD5Utils.code(code);//生成MD5值
+        String hash = MD5Utils.code(code);//生成MD5值
         resultMap.put("hash", hash);
         resultMap.put("tamp", currentTime);
     }

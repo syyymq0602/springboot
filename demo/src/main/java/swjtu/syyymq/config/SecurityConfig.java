@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 放行主界面、登录界面、注册页面、邮箱验证请求
-                .antMatchers("/","/toLogin","/register","/sendEmail","/login**").permitAll()
+                .antMatchers("/","/toLogin","/register","/sendEmail","/login**","/forget").permitAll()
                 // 放行静态资源
                 .antMatchers("/css/**","/js/**","/images/**","/assets/**").permitAll()
                 // 根据授权访问对应资源

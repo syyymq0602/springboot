@@ -31,10 +31,9 @@ public class LoginController {
         return "login2";
     }
 
-    @GetMapping("/root/{id}")
-    @ResponseBody
-    public String test2(@PathVariable("id") String id){
-        return "root"+id;
+    @GetMapping("/forget")
+    public String forgetRedirect(){
+        return "forget";
     }
 
 }

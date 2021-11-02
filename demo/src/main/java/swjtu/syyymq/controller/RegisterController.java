@@ -1,12 +1,7 @@
 package swjtu.syyymq.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailSendException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swjtu.syyymq.dto.RegisterDto;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.UserMapper;
+import swjtu.syyymq.service.MailService;
 import swjtu.syyymq.utils.MD5Utils;
 import swjtu.syyymq.utils.RandomUtils;
 
@@ -30,15 +26,13 @@ public class RegisterController {
     @Autowired
     private UserMapper userMapper;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Value("${mail.fromMail.sender}")
-    private String sender;
-
     @Autowired
-    private JavaMailSender javaMailSender;
+    private MailService mailService;
 
     private final Map<String, Object> resultMap = new HashMap<>();
+
+    @Value("${mail.fromMail.expiredTime}")
+    private int expiredTime;
 
     @GetMapping("/register")
     public String register(){
@@ -59,7 +53,8 @@ public class RegisterController {
         Calendar c = Calendar.getInstance();
         String currentTime = sf.format(c.getTime());
         if (tamp.compareTo(currentTime) > 0) {
-            String hash =  MD5Utils.code(register.getIdentify());//生成MD5值
+            // 生成MD5值
+            String hash =  MD5Utils.code(register.getIdentify());
             if (requestHash.equalsIgnoreCase(hash)){
                 //校验成功
                 User user = new User();
@@ -79,27 +74,21 @@ public class RegisterController {
         }
     }
 
+    /**
+     *
+     * @param email 用户用于验证的邮箱
+     * @return 验证结果
+     * @throws Exception 验证异常
+     */
     @RequestMapping("/sendEmail")
     @ResponseBody
     public String sendEmail(String email) throws Exception {
-        SimpleMailMessage message = new SimpleMailMessage();
         int code = RandomUtils.getRandom(6);    //随机数生成6位验证码
-        message.setFrom(sender);
-        message.setTo(email);
-        message.setSubject("博客系统");// 标题
-        message.setText("【博客系统】你的验证码为："+code+"，有效时间为3分钟(若不是本人操作，可忽略该条邮件)");// 内容
-        try {
-            javaMailSender.send(message);
-            logger.info("文本邮件发送成功！");
+        String result = mailService.sendMail(email,code,expiredTime);
+        if("success".equalsIgnoreCase(result)){
             saveCode(Integer.toString(code));
-            return "success";
-        }catch (MailSendException e){
-            logger.error("目标邮箱不存在");
-            return "false";
-        } catch (Exception e) {
-            logger.error("文本邮件发送异常！", e);
-            return "failure";
         }
+        return result;
     }
 
     /**
@@ -109,7 +98,7 @@ public class RegisterController {
     private void saveCode(String code){
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.MINUTE, 3);
+        c.add(Calendar.MINUTE, expiredTime);
         String currentTime = sf.format(c.getTime());// 生成3分钟后时间，用户校验是否过期
         String hash =  MD5Utils.code(code);//生成MD5值
         resultMap.put("hash", hash);

@@ -9,6 +9,7 @@ public class RandomUtils {
      */
     public static int getRandom(int low,int high) throws Exception {
         if(low>=high){
+            // TODO：自定义异常
             throw new Exception("输入参数格式错误！！！");
         }
         return (int)(Math.random()*(high-low))+low;

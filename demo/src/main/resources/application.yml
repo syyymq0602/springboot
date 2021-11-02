@@ -31,3 +31,4 @@ mybatis:
 mail:
   fromMail:
     sender: 3189699338@qq.com
+    expiredTime: 3

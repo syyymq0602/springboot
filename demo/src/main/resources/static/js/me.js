@@ -22,10 +22,15 @@ $('#getcode').click(function(){
             }
             else if (data==="false"){
                 alert("目标邮箱不存在，请检查你的邮箱是否正确");
+            }else if(data==="success"){
+                validate()
             }
         }
     });
-    let btn = $(this);
+});
+
+function validate() {
+    let btn = $('#getcode');
     let count = 60;
     let resend = setInterval(function(){
         count--;
@@ -37,4 +42,4 @@ $('#getcode').click(function(){
         }
     }, 1000);
     btn.attr('disabled',true).css('cursor','not-allowed');
-});
+}

@@ -8,9 +8,11 @@ import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.RoleMapper;
 import swjtu.syyymq.mapper.UserMapper;
+import swjtu.syyymq.utils.MD5Utils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -51,14 +53,17 @@ class DemoApplicationTests {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("id",1);
         map.put("age",21);
+        map.put("phone",123124);
         template.opsForHash().putAll("user",map);
+        template.opsForValue().set("qq",123,30, TimeUnit.SECONDS);
         System.out.println(template.opsForValue().get("key1"));
     }
 
     @Test
     void test_redis2(){
-        System.out.println(template.opsForValue().get("key1"));
-        System.out.println(template.opsForHash().entries("user"));
-        System.out.println(template.opsForHash().get("user","id"));
+//        System.out.println(template.opsForValue().get("key1"));
+//        System.out.println(template.opsForHash().entries("user"));
+//        System.out.println(template.opsForHash().get("user","id"));
+        System.out.println(template.opsForValue().get("hash"));
     }
 }

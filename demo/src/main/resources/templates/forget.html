@@ -30,8 +30,7 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" id="username" name="username" placeholder="请输入你的用户名"
-                                       onchange="isUsernameUnique(this)">
+                                <input type="text" id="username" name="username" placeholder="请输入你的用户名">
                             </div>
                         </div>
                         <div class="field">
@@ -45,6 +44,12 @@
                             <div class="ui left icon input">
                                 <i class="check square outline icon"></i>
                                 <input type="text" name="identify" id="identify" placeholder="验证码">
+                            </div>
+                        </div>
+                        <div class="code field"  style="display:none" >
+                            <div class="ui left icon input">
+                                <i class="check square outline icon"></i>
+                                <input type="password" name="password" id="password" placeholder="密码">
                             </div>
                         </div>
                         <button class="ui fluid large teal submit button" id="register-btn">注 册</button>

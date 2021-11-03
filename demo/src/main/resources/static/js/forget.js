@@ -1,7 +1,7 @@
 $('#getcode').click(function(){
     //发送验证码
     let email = $("#email").val();
-    let name = $("#username").val();
+    let username = $("#username").val();
     if(email===""){
         return;
     }
@@ -13,20 +13,26 @@ $('#getcode').click(function(){
         url: "http://localhost:8080/forget",
         //data请求数据
         data: {
-            "name": name,
+            "username": username,
             "email": email
         },
         //dataType json
         type: "post",
         //回调函数
         success: function (data) {
+            console.log(data)
             //回调函数 data 返回流
             if (data === "failure") {
                 alert("发送失败");
+            }else if(data==="success"){
+                validated()
             }
         }
     });
-    let btn = $(this);
+});
+
+function validated(){
+    let btn = $('#getcode');
     let count = 60;
     let resend = setInterval(function(){
         count--;
@@ -38,4 +44,4 @@ $('#getcode').click(function(){
         }
     }, 1000);
     btn.attr('disabled',true).css('cursor','not-allowed');
-});
+}

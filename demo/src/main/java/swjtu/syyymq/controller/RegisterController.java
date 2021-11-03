@@ -18,17 +18,15 @@ import swjtu.syyymq.service.MailService;
 import swjtu.syyymq.utils.MD5Utils;
 import swjtu.syyymq.utils.RandomUtils;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Controller
+@RequestMapping("/register")
 public class RegisterController {
     private final UserMapper userMapper;
 
     private final MailService mailService;
 
-    private final Map<String, Object> resultMap = new HashMap<>();
     private final RedisTemplate<String,Object> template;
 
     @Value("${mail.fromMail.expiredTime}")
@@ -41,11 +39,6 @@ public class RegisterController {
         this.userMapper = userMapper;
         this.mailService = mailService;
         this.template = template;
-    }
-
-    @GetMapping("/register")
-    public String register(){
-        return "register";
     }
 
     @PostMapping("/register")
@@ -62,16 +55,16 @@ public class RegisterController {
                 user.setUsername(register.getUsername());
                 user.setPassword(new BCryptPasswordEncoder().encode(register.getPassword()).trim());
                 userMapper.save(user);
-                return "redirect:/toLogin";
+                return "redirect:/login/toLogin";
             }else {
                 //验证码不正确，校验失败
                 attributes.addFlashAttribute("message", "验证码输入不正确");
-                return "redirect:/register";
+                return "redirect:/register/index";
             }
         } else {
             // 超时
             attributes.addFlashAttribute("message", "验证码已过期");
-            return "redirect:/register";
+            return "redirect:/register/index";
         }
     }
 

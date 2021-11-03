@@ -6,13 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequestMapping("/login")
 public class LoginController {
-
-    @RequestMapping({"/","/index"})
-    @ApiOperation("欢迎界面")
-    public String index(){
-        return "index";
-    }
 
     @GetMapping("/toLogin")
     @ApiOperation("登录界面")
@@ -25,7 +20,6 @@ public class LoginController {
         return "dashboard";
     }
 
-
     @GetMapping("/login2")
     public String test1(){
         return "login2";
@@ -34,6 +28,11 @@ public class LoginController {
     @GetMapping("/forget")
     public String forgetRedirect(){
         return "forget";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
     }
 
 }

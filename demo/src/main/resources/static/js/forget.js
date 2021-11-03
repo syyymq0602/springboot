@@ -10,7 +10,7 @@ $('#getcode').click(function(){
     //ajax实现后台邮箱的发送
     $.ajax({
         //url路径
-        url: "http://localhost:8080/forget",
+        url: "http://localhost:8080/validate/forget",
         //data请求数据
         data: {
             "username": username,
@@ -20,15 +20,13 @@ $('#getcode').click(function(){
         type: "post",
         //回调函数
         success: function (data) {
-            console.log(data)
             //回调函数 data 返回流
             if (data === "failure") {
                 alert("发送失败");
-            }else if(data==="success"){
-                validated()
             }
         }
     });
+    validated()
 });
 
 function validated(){

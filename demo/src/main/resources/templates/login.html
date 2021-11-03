@@ -49,7 +49,7 @@
       <input type="password" name="password" class="密码" th:placeholder="#{login.password}" required="required">
       <div>
         <input type="checkbox" id="brand1" name="remember" th:text="' '+#{login.remember}">
-        <a th:href="@{/forget}" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
+        <a th:href="@{/login/forget}" style="font-size: 15px" th:text="#{login.forgetPassword}"></a><br>
       </div>
       <div class="clear"></div>
       <input type="submit" th:value="#{login.btn}">
@@ -62,6 +62,7 @@
     </div>
     <div class="more">
       <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" onclick="func()" th:text="#{login.registerNow}"></a>
+<!--      <a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog" th:text="#{login.registerNow}"></a>-->
     </div>
   </div>
   <div class="clear"></div>
@@ -82,10 +83,10 @@
   <div id="small-dialog" class="mfp-hide book-form">
     <h3>注册信息</h3>
     <form action="#" method="post">
-      <input type="text" name="Name" placeholder="名字" required=""/>
-      <input type="text" name="Email" class="email" placeholder="邮件地址" required=""/>
-      <input type="password" name="Password" class="password" placeholder="密码" required=""/>
-      <input type="password" name="Password" class="password" placeholder="确认密码" required=""/>
+      <input type="text" name="username" placeholder="名字" required=""/>
+      <input type="text" name="email" class="email" placeholder="邮件地址" required=""/>
+      <input type="password" name="password" class="password" placeholder="密码" required=""/>
+      <input type="password" name="password" class="password" placeholder="确认密码" required=""/>
       <input type="submit" value="注册">
     </form>
   </div>
@@ -98,7 +99,7 @@
 <script th:src="@{/assets/bgjs/color.js}"></script>
 <script th:inline="javascript">
   let func = () => {
-    window.location.href = /*[[@{/register}]]*/ null;
+    window.location.href = /*[[@{/login/register}]]*/ null;
   }
 </script>
 	

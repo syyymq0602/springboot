@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swjtu.syyymq.entity.User;
@@ -16,6 +17,7 @@ import swjtu.syyymq.utils.RandomUtils;
 import java.util.concurrent.TimeUnit;
 
 @Controller
+@RequestMapping("/validate")
 public class ForgetController {
     @Value("${mail.fromMail.expiredTime}")
     private int expiredTime;

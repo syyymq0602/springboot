@@ -9,7 +9,7 @@ $('#getcode').click(function(){
     //ajax实现后台邮箱的发送
     $.ajax({
         //url路径
-        url: "http://localhost:8080/sendEmail",
+        url: "http://localhost:8080/register/sendEmail",
         //data请求数据
         data: {"email": email},
         //dataType json
@@ -22,11 +22,10 @@ $('#getcode').click(function(){
             }
             else if (data==="false"){
                 alert("目标邮箱不存在，请检查你的邮箱是否正确");
-            }else if(data==="success"){
-                validate()
             }
         }
     });
+    validate()
 });
 
 function validate() {

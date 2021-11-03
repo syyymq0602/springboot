@@ -1,8 +1,6 @@
 package swjtu.syyymq.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -60,6 +58,20 @@ public class User implements UserDetails {
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", locked=" + locked +
+                ", expired=" + expired +
+                ", credentialsExpire=" + credentialsExpire +
+                ", roles=" + roles +
+                '}';
     }
 
     @Override

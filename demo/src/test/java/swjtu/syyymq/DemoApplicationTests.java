@@ -27,7 +27,9 @@ class DemoApplicationTests {
     @Test
     void contextLoads() {
         List<User> users = userMapper.findAll();
-        System.out.println(users);
+        for (User user : users) {
+            System.out.println(user);
+        }
     }
 
     @Test

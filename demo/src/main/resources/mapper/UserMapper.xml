@@ -33,4 +33,8 @@
         insert into user(username,password,enabled,locked,expired,credentialsExpire)
         values (#{username},#{password},#{enabled},#{locked},#{expired},#{credentialsExpire})
     </insert>
+
+    <update id="updatePassword" parameterType="User">
+        update user set password=#{password} where username=#{username}
+    </update>
 </mapper>

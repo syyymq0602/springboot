@@ -41,6 +41,12 @@ public class RegisterController {
         this.template = template;
     }
 
+    /**
+     * 核心注册逻辑代码
+     * @param register 注册接收对象，包含用户名、密码、邮箱、验证码
+     * @param attributes 重定向参数
+     * @return 重定向路径
+     */
     @PostMapping("/register")
     public String doRegister(RegisterDto register,
                              RedirectAttributes attributes){
@@ -55,16 +61,16 @@ public class RegisterController {
                 user.setUsername(register.getUsername());
                 user.setPassword(new BCryptPasswordEncoder().encode(register.getPassword()).trim());
                 userMapper.save(user);
-                return "redirect:/login/toLogin";
+                return "redirect:/login/index";
             }else {
                 //验证码不正确，校验失败
                 attributes.addFlashAttribute("message", "验证码输入不正确");
-                return "redirect:/register/index";
+                return "redirect:/login/register";
             }
         } else {
             // 超时
             attributes.addFlashAttribute("message", "验证码已过期");
-            return "redirect:/register/index";
+            return "redirect:/login/register";
         }
     }
 

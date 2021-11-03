@@ -17,4 +17,6 @@ public interface UserMapper {
 
     void save(User user);
 
+    void updatePassword(User user);
+
 }

@@ -8,8 +8,9 @@ import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.RoleMapper;
 import swjtu.syyymq.mapper.UserMapper;
-import swjtu.syyymq.utils.MD5Utils;
+import swjtu.syyymq.utils.DateUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -65,5 +66,11 @@ class DemoApplicationTests {
 //        System.out.println(template.opsForHash().entries("user"));
 //        System.out.println(template.opsForHash().get("user","id"));
         System.out.println(template.opsForValue().get("hash"));
+    }
+
+    @Test
+    void test_date(){
+        System.out.println(DateUtil.getNowTimeStamp());
+        System.out.println(DateUtil.date2timeStamp(new Date()));
     }
 }

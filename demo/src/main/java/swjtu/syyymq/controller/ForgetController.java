@@ -16,8 +16,8 @@ import swjtu.syyymq.dto.RegisterDto;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.UserMapper;
 import swjtu.syyymq.service.MailService;
-import swjtu.syyymq.utils.MD5Utils;
-import swjtu.syyymq.utils.RandomUtils;
+import swjtu.syyymq.utils.MD5Util;
+import swjtu.syyymq.utils.RandomUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,10 +51,10 @@ public class ForgetController {
             attributes.addFlashAttribute("message","用户不存在，请注册！");
             return "false";
         }
-        int code = RandomUtils.getRandom(6);
+        int code = RandomUtil.getRandom(6);
         String resetPasswordEmail = mailService.resetPasswordEmail(email,code,expiredTime);
         if("success".equalsIgnoreCase(resetPasswordEmail)){
-            String hash = MD5Utils.code(Integer.toString(code));//生成MD5值
+            String hash = MD5Util.code(Integer.toString(code));//生成MD5值
             assert hash != null;
             template.opsForValue().set("hash",hash,expiredTime, TimeUnit.MINUTES);
         }
@@ -65,7 +65,7 @@ public class ForgetController {
     public String update(RegisterDto register){
         String requestHash = (String)template.opsForValue().get("hash");
         if (StringUtils.hasText(requestHash)){
-            String hash =  MD5Utils.code(register.getIdentify());
+            String hash =  MD5Util.code(register.getIdentify());
             // 校验验证码是否正确
             if (requestHash.equalsIgnoreCase(hash)){
                 // 校验成功

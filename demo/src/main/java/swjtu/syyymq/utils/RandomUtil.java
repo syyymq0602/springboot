@@ -1,6 +1,6 @@
 package swjtu.syyymq.utils;
 
-public class RandomUtils {
+public class RandomUtil {
     /**
      * @param low 低值参数
      * @param high 高值参数

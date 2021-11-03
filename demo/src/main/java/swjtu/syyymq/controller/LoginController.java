@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    @GetMapping("/toLogin")
+    @GetMapping("/index")
     @ApiOperation("登录界面")
     public String login(){
         return "login";

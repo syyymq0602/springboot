@@ -37,14 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .anyRequest().authenticated();
 
         http.formLogin()
-                .loginPage("/login/toLogin")
+                .loginPage("/login/index")
                     .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/login/success");
 
 
         http.csrf().disable();
 
-        http.logout().logoutSuccessUrl("/login/toLogin");
+        http.logout().logoutSuccessUrl("/login/index");
     }
 
     @Override

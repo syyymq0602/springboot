@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>Dashboard Template · Bootstrap v4.6</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+  </head>
+  <body>
+
+<div th:insert="~{commons/common::topbar}"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div th:insert="~{commons/common::sidebar(active='list')}"></div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">仪表盘</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">分享</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+      <h2>用户信息列表</h2>
+      <form class="form-horizontal" action="#" method="post">
+        <div class="form-group">
+          <label for="inputEmail" class="col-sm-2 control-label">用户名</label>
+          <div class="col-sm-10">
+            <input type="text" name="username" class="form-control" id="inputEmail" placeholder="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="col-sm-2 control-label">用户角色</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPassword" placeholder="roles">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAuthority" class="col-sm-2 control-label">用户权限</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputAuthority" placeholder="authority">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEnabled" class="col-sm-2 control-label">是否可用</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputEnabled" placeholder="Enabled">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputLocked" class="col-sm-2 control-label">是否被锁</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputLocked" placeholder="Locked">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCredentialsExpire" class="col-sm-2 control-label">是否凭证到期</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputCredentialsExpire" placeholder="CredentialsExpire">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputExpire" class="col-sm-2 control-label">是否过期</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputExpire" placeholder="Expire">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Remember me
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Sign in</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
+
+    <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+      
+        <script th:src="@{/js/feather.min.js}"></script>
+        <script th:src="@{/js/Chart.min.js}"></script>
+        <script th:src="@{/js/dashboard.js}"></script>
+  </body>
+</html>

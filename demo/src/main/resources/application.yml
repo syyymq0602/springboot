@@ -4,8 +4,6 @@ spring:
 
   thymeleaf:
     cache: false
-    prefix: classpath:/templates/
-    suffix: .html
 
   security:
     user:
@@ -21,7 +19,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 3189699338@qq.com
-    password: smaercrdxgquddjh
+    password: bbb
     default-encoding: UTF-8
 
   redis:

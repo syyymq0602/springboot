@@ -74,6 +74,22 @@ public class User implements UserDetails {
                 '}';
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public Boolean getExpired() {
+        return expired;
+    }
+
+    public Boolean getCredentialsExpire() {
+        return credentialsExpire;
+    }
+
     @Override
     // 自动授予用户权限
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -97,24 +113,24 @@ public class User implements UserDetails {
     @Override
     // 账户是否过期
     public boolean isAccountNonExpired() {
-        return !expired;
+        return !getExpired();
     }
 
     @Override
     // 账户是否被锁定
     public boolean isAccountNonLocked() {
-        return !locked;
+        return !getLocked();
     }
 
     @Override
     // 凭证是否过期
     public boolean isCredentialsNonExpired() {
-        return !credentialsExpire;
+        return !getCredentialsExpire();
     }
 
     @Override
     // 账户是否可用
     public boolean isEnabled() {
-        return enabled;
+        return getEnabled();
     }
 }

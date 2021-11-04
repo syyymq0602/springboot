@@ -26,10 +26,9 @@ public class UserController {
 
     @GetMapping("/all")
     @ApiOperation("所有用户")
-    @ResponseBody
-    public List<User> user(){
+    public String user(Model model){
         List<User> users = userMapper.findAll();
-//        model.addAttribute("username", principal.getName());
-        return users;
+        model.addAttribute("users",users);
+        return "emp/list";
     }
 }

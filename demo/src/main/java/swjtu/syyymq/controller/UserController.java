@@ -6,6 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import swjtu.syyymq.dto.EditDto;
+import swjtu.syyymq.dto.mapper.CustomMapper;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.UserMapper;
 
@@ -16,10 +18,13 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserMapper userMapper;
+    private final CustomMapper customMapper;
 
     @Autowired
-    public UserController(UserMapper userMapper) {
+    public UserController(UserMapper userMapper,
+                          CustomMapper customMapper) {
         this.userMapper = userMapper;
+        this.customMapper = customMapper;
     }
 
     @GetMapping("/all")
@@ -35,7 +40,8 @@ public class UserController {
     public String edit(@RequestParam(name = "name") String username,
                        Model model){
         User user = userMapper.findByUsername(username);
-        model.addAttribute("user",user);
+        EditDto editDto = customMapper.userToEditDto(user);
+        model.addAttribute("editDto",editDto);
         return "emp/edit";
     }
 }

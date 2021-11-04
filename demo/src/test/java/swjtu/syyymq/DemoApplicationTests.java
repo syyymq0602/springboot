@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import swjtu.syyymq.dto.EditDto;
 import swjtu.syyymq.dto.RegisterDto;
-import swjtu.syyymq.dto.mapper.EntityDto;
+import swjtu.syyymq.dto.mapper.CustomMapper;
 import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.RoleMapper;
@@ -26,6 +27,8 @@ class DemoApplicationTests {
     private RoleMapper roleMapper;
     @Autowired
     private RedisTemplate<String,Object> template;
+    @Autowired
+    private CustomMapper customMapper;
     @Test
     void contextLoads() {
         List<User> users = userMapper.findAll();
@@ -85,12 +88,15 @@ class DemoApplicationTests {
     }
     @Test
     void shouldMapRegisterToDto(){
-        RegisterDto dto = new RegisterDto("1", "1", "1", "1");
-        User uer = EntityDto.INSTANCE.registerDtoToUser(dto);
-        User user1 = new User();
-        user1.setUsername(dto.getUsername());
-        user1.setPassword(dto.getPassword());
-        System.out.println(uer);
-        System.out.println(user1);
+        RegisterDto dto = new RegisterDto("1","123","1","1");
+        User user = customMapper.registerDtoToUser(dto);
+        System.out.println(user);
+    }
+
+    @Test
+    void EditConverter(){
+        User root = userMapper.findByUsername("root");
+        EditDto dto = customMapper.userToEditDto(root);
+        System.out.println(dto);
     }
 }

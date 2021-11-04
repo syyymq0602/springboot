@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swjtu.syyymq.dto.RegisterDto;
+import swjtu.syyymq.dto.mapper.CustomMapper;
 import swjtu.syyymq.entity.User;
 import swjtu.syyymq.mapper.UserMapper;
 import swjtu.syyymq.service.MailService;
@@ -28,16 +29,20 @@ public class RegisterController {
 
     private final RedisTemplate<String,Object> template;
 
+    private final CustomMapper customMapper;
+
     @Value("${mail.fromMail.expiredTime}")
     private int expiredTime;
 
     @Autowired
     public RegisterController(UserMapper userMapper,
                               MailService mailService,
-                              RedisTemplate<String, Object> template) {
+                              RedisTemplate<String, Object> template,
+                              CustomMapper customMapper) {
         this.userMapper = userMapper;
         this.mailService = mailService;
         this.template = template;
+        this.customMapper = customMapper;
     }
 
     /**
@@ -56,9 +61,7 @@ public class RegisterController {
             // 校验验证码是否正确
             if (requestHash.equalsIgnoreCase(hash)){
                 //校验成功
-                User user = new User();
-                user.setUsername(register.getUsername());
-                user.setPassword(new BCryptPasswordEncoder().encode(register.getPassword()).trim());
+                User user = customMapper.registerDtoToUser(register);
                 userMapper.save(user);
                 return "redirect:/login/index";
             }else {

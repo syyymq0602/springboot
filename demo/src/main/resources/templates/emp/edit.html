@@ -46,43 +46,43 @@
         <div class="form-group">
           <label for="inputEmail" class="col-sm-2 control-label">用户名:</label>
           <div class="col-sm-10">
-            <input type="text" name="username" class="form-control" id="inputEmail" th:value="${user.getUsername()}" disabled>
+            <input type="text" name="username" class="form-control" id="inputEmail" th:value="${editDto.getUsername()}" disabled>
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword" class="col-sm-2 control-label">用户角色:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputPassword" th:value="${user.getRoles()}">
+            <input type="text" class="form-control" id="inputPassword" th:value="${editDto.getRoles()}">
           </div>
         </div>
         <div class="form-group">
           <label for="inputAuthority" class="col-sm-2 control-label">用户权限:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputAuthority" th:value="${user.getAuthorities()}">
+            <input type="text" class="form-control" id="inputAuthority" value="权限">
           </div>
         </div>
         <div class="form-group">
           <label for="inputEnabled" class="col-sm-2 control-label">是否可用:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEnabled" th:value="${user.getEnabled()}">
+            <input type="text" class="form-control" id="inputEnabled" th:value="${editDto.getEnabled()}">
           </div>
         </div>
         <div class="form-group">
           <label for="inputLocked" class="col-sm-2 control-label">是否被锁:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputLocked" th:value="${user.getLocked()}">
+            <input type="text" class="form-control" id="inputLocked" th:value="${editDto.getLocked()}">
           </div>
         </div>
         <div class="form-group">
           <label for="inputCredentialsExpire" class="col-sm-2 control-label">是否凭证到期:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputCredentialsExpire" th:value="${user.getCredentialsExpire()}">
+            <input type="text" class="form-control" id="inputCredentialsExpire" th:value="${editDto.getCredentialsExpire()}">
           </div>
         </div>
         <div class="form-group">
           <label for="inputExpire" class="col-sm-2 control-label">是否过期:</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputExpire" th:value="${user.getExpired()}">
+            <input type="text" class="form-control" id="inputExpire" th:value="${editDto.getExpired()}">
           </div>
         </div>
         <div class="form-group">

@@ -17,8 +17,8 @@
         </collection>
     </resultMap>
 
-    <select id="findByUsername" resultType="User" parameterType="String">
-        SELECT * FROM user where username = #{username}
+    <select id="findByUsername" resultMap="userRoleMap" parameterType="String">
+        select u.*,r.*,u.id userId,r.id roleId from user u,role r,user_role ur where uid=u.id and rid=r.id and username=#{username}
     </select>
 
     <select id="findAll" resultMap="userRoleMap">

@@ -27,7 +27,7 @@ public class UserController {
     public String user(Model model){
         List<User> users = userMapper.findAll();
         model.addAttribute("users",users);
-        return "/emp/list";
+        return "emp/list";
     }
 
     @GetMapping("/edit")
@@ -36,6 +36,6 @@ public class UserController {
                        Model model){
         User user = userMapper.findByUsername(username);
         model.addAttribute("user",user);
-        return "/emp/edit";
+        return "emp/edit";
     }
 }

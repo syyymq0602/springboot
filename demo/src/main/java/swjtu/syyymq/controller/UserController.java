@@ -44,4 +44,10 @@ public class UserController {
         model.addAttribute("editDto",editDto);
         return "emp/edit";
     }
+    @GetMapping("/delete")
+    @ApiOperation("删除用户")
+    public String delete(@RequestParam(name = "name") String username){
+        userMapper.delete(username);
+        return "redirect:/user/all";
+    }
 }

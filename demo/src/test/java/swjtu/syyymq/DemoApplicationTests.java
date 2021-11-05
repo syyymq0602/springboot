@@ -99,4 +99,9 @@ class DemoApplicationTests {
         EditDto dto = customMapper.userToEditDto(root);
         System.out.println(dto);
     }
+
+    @Test
+    void test_delete(){
+        userMapper.delete("mmm");
+    }
 }

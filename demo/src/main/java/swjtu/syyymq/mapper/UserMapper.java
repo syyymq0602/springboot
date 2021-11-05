@@ -19,4 +19,5 @@ public interface UserMapper {
 
     void updatePassword(User user);
 
+    void delete(String name);
 }

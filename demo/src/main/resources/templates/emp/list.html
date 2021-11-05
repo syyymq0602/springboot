@@ -6,17 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>Dashboard Template · Bootstrap v4.6</title>
-
+    <title>Dashboard</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
-
-    
-
     <!-- Bootstrap core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-
-
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -26,15 +19,12 @@
         -ms-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
     </style>
-
-    
     <!-- Custom styles for this template -->
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
   </head>
@@ -52,6 +42,7 @@
           <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">分享</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
+            <a class="btn btn-sm btn-outline-secondary" th:href="@{/login/success}">返回</a>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
@@ -90,7 +81,7 @@
               <td th:text="${user.getExpired()?'是':'否'}"></td>
               <td>
                 <a class="btn btn-sm btn-primary" th:href="@{/user/edit(name=${user.getUsername()})}">编辑</a>
-                <a class="btn btn-sm btn-danger">删除</a>
+                <a class="btn btn-sm btn-danger" th:href="@{/user/delete(name=${user.getUsername()})}">删除</a>
               </td>
             </tr>
           </tbody>

@@ -37,4 +37,8 @@
     <update id="updatePassword" parameterType="User">
         update user set password=#{password} where username=#{username}
     </update>
+
+    <delete id="delete" parameterType="String">
+        delete from user where username=#{username}
+    </delete>
 </mapper>

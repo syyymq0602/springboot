@@ -70,11 +70,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="user:${users}">
-              <td th:text="${user.getId()}"></td>
+            <tr th:each="user,userStat:${users}">
+              <td th:text="${userStat.index+1}"></td>
               <td th:text="${user.getUsername()}"></td>
               <td th:text="${user.getAuthorities()}"></td>
-              <td th:text="${user.getRoles()[0].getNameZh()}"></td>
+              <td>
+                <a th:each="role:${user.getRoles()}" th:text="${role.getNameZh()}+'  '"></a>
+              </td>
               <td th:text="${user.getEnabled()?'是':'否'}"></td>
               <td th:text="${user.getLocked()?'是':'否'}"></td>
               <td th:text="${user.getCredentialsExpire()?'是':'否'}"></td>

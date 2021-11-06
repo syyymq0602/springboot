@@ -12,7 +12,9 @@ public interface RoleMapper {
 
     void update(Role role);
 
-    void delete(int id);
+    void delete(String name);
 
     List<Role> findAll();
+
+    Role findByEName(String name);
 }

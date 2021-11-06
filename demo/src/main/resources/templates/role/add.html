@@ -33,7 +33,7 @@
           <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">分享</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
-            <a class="btn btn-sm btn-outline-secondary" th:href="@{/user/all}">返回</a>
+            <a class="btn btn-sm btn-outline-secondary" th:href="@{/role/all}">返回</a>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
@@ -42,48 +42,18 @@
         </div>
       </div>
 
-      <h2>用户信息编辑</h2>
-      <form class="form-horizontal" action="#" method="post">
+      <h2>角色信息添加</h2>
+      <form class="form-horizontal" th:action="@{/role/add}" method="post">
         <div class="form-group">
-          <label for="inputEmail" class="col-sm-2 control-label">用户名:</label>
+          <label for="inputNameEN" class="col-sm-2 control-label">角色名(英文):</label>
           <div class="col-sm-10">
-            <input type="text" name="username" class="form-control" id="inputEmail" th:value="${editDto.getUsername()}" disabled>
+            <input type="text" name="nameEN" class="form-control" id="inputNameEN">
           </div>
         </div>
         <div class="form-group">
-          <label for="inputRoles" class="col-sm-2 control-label">用户角色:</label>
+          <label for="inputNameZH" class="col-sm-2 control-label">角色名(中文):</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputRoles" th:value="${editDto.getRoles()}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputAuthority" class="col-sm-2 control-label">用户权限:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputAuthority" value="权限">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEnabled" class="col-sm-2 control-label">是否可用:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEnabled" th:value="${editDto.getEnabled()?'是':'否'}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputLocked" class="col-sm-2 control-label">是否被锁:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputLocked" th:value="${editDto.getLocked()?'是':'否'}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputCredentialsExpire" class="col-sm-2 control-label">是否凭证到期:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputCredentialsExpire" th:value="${editDto.getCredentialsExpire()?'是':'否'}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputExpire" class="col-sm-2 control-label">是否过期:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputExpire" th:value="${editDto.getExpired()?'是':'否'}">
+            <input type="text" name="nameZH" class="form-control" id="inputNameZH">
           </div>
         </div>
         <div class="form-group">
@@ -97,7 +67,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <button type="submit" class="btn btn-primary">添加</button>
           </div>
         </div>
       </form>

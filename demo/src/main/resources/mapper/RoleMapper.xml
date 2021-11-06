@@ -9,11 +9,15 @@
         update role set nameEN=#{nameEN},nameZH=#{nameZH} where id=#{id}
     </update>
 
-    <delete id="delete" parameterType="int">
-        delete from role where id=#{id}
+    <delete id="delete" parameterType="String">
+        delete from role where nameEN=#{nameEN}
     </delete>
 
     <select id="findAll" resultType="role">
         select * from role
+    </select>
+
+    <select id="findByEName" parameterType="String" resultType="Role">
+        select * from role where nameEN=#{nameEN}
     </select>
 </mapper>

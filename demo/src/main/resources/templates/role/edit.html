@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>Dashboard Template · Bootstrap v4.6</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+      .control-label{
+        font-size: 17px;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+  </head>
+  <body>
+
+<div th:insert="~{commons/common::topbar}"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div th:insert="~{commons/common::sidebar(active='list')}"></div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">仪表盘</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">分享</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">导出</button>
+            <a class="btn btn-sm btn-outline-secondary" th:href="@{/role/all}">返回</a>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+      <h2>角色信息编辑</h2>
+      <form class="form-horizontal" th:action="@{role/edit}" method="post">
+        <div class="form-group">
+          <label for="inputEmail" class="col-sm-2 control-label">角色名(英文):</label>
+          <div class="col-sm-10">
+            <input type="text" name="username" class="form-control" id="inputEmail" th:value="${role.getNameEN()}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputRoles" class="col-sm-2 control-label">角色名(中文):</label>
+          <div class="col-sm-10">
+            <input type="text" name="roles" class="form-control" id="inputRoles" th:value="${role.getNameZh()}">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
+
+  <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/js/feather.min.js}"></script>
+  <script th:src="@{/js/Chart.min.js}"></script>
+  <script th:src="@{/js/dashboard.js}"></script>
+  <script>
+    let element = document.getElementById("inputRoles");
+    let newStr = element.value.replace(/\[|]/g,'');
+    element.value = newStr
+  </script>
+  </body>
+</html>

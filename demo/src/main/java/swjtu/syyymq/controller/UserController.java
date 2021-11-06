@@ -32,7 +32,7 @@ public class UserController {
     public String user(Model model){
         List<User> users = userMapper.findAll();
         model.addAttribute("users",users);
-        return "emp/list";
+        return "user/list";
     }
 
     @GetMapping("/edit")
@@ -42,7 +42,7 @@ public class UserController {
         User user = userMapper.findByUsername(username);
         EditDto editDto = customMapper.userToEditDto(user);
         model.addAttribute("editDto",editDto);
-        return "emp/edit";
+        return "user/edit";
     }
     @GetMapping("/delete")
     @ApiOperation("删除用户")

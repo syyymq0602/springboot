@@ -1,11 +1,13 @@
 package swjtu.syyymq;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import swjtu.syyymq.dto.EditDto;
 import swjtu.syyymq.dto.RegisterDto;
+import swjtu.syyymq.dto.RoleDto;
 import swjtu.syyymq.dto.mapper.CustomMapper;
 import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
@@ -13,6 +15,7 @@ import swjtu.syyymq.mapper.RoleMapper;
 import swjtu.syyymq.mapper.UserMapper;
 import swjtu.syyymq.utils.DateUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -69,10 +72,11 @@ class DemoApplicationTests {
 
     @Test
     void test_redis2(){
-//        System.out.println(template.opsForValue().get("key1"));
-//        System.out.println(template.opsForHash().entries("user"));
-//        System.out.println(template.opsForHash().get("user","id"));
-        System.out.println(template.opsForValue().get("hash"));
+        RoleDto roleDto = new RoleDto();
+        roleDto.setNameEN("user");
+        Role role = customMapper.roleDtoToRole(roleDto);
+        Role result = roleMapper.findByEName(role.getNameEN());
+        System.out.println(result);
     }
 
     @Test
@@ -102,6 +106,11 @@ class DemoApplicationTests {
 
     @Test
     void test_delete(){
-        userMapper.delete("mmm");
+        List<Role> roles = roleMapper.findAll();
+        List<RoleDto> roleDtoList = new ArrayList<>();
+        for (Role role : roles) {
+            roleDtoList.add(customMapper.roleToRoleDto(role));
+        }
+        System.out.println(roleDtoList);
     }
 }

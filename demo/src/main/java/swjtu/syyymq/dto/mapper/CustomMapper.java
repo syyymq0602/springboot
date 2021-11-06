@@ -7,6 +7,7 @@ import org.mapstruct.Named;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import swjtu.syyymq.dto.EditDto;
 import swjtu.syyymq.dto.RegisterDto;
+import swjtu.syyymq.dto.RoleDto;
 import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
 
@@ -31,6 +32,31 @@ public interface CustomMapper {
             @Mapping(target = "roles",source = "roles",qualifiedByName = "rolesConvert"),
     })
     EditDto userToEditDto(User user);
+
+    @Mappings({
+            @Mapping(target = "nameZH",source = "nameZh"),
+            @Mapping(target = "nameEN",source = "nameEN",qualifiedByName = "splitRole")
+    })
+    RoleDto roleToRoleDto(Role role);
+
+    @Mappings({
+            @Mapping(target = "nameZh",source = "nameZH"),
+            @Mapping(target = "nameEN",source = "nameEN",qualifiedByName = "addRole")
+    })
+    Role roleDtoToRole(RoleDto roleDto);
+
+    @Named("splitRole")
+    static String splitRole(String roleName){
+        if(!roleName.contains("_")){
+            return roleName;
+        }
+        return roleName.split("_")[1];
+    }
+
+    @Named("addRole")
+    static String addRole(String roleNameEN){
+        return "ROLE_" + roleNameEN;
+    }
 
     @Named("code")
     static String code(String password){

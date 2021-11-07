@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import swjtu.syyymq.dto.EditDto;
+import swjtu.syyymq.dto.RoleDto;
 import swjtu.syyymq.dto.mapper.CustomMapper;
+import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
+import swjtu.syyymq.mapper.RoleMapper;
 import swjtu.syyymq.mapper.UserMapper;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,12 +23,15 @@ import java.util.List;
 public class UserController {
     private final UserMapper userMapper;
     private final CustomMapper customMapper;
+    private final RoleMapper roleMapper;
 
     @Autowired
     public UserController(UserMapper userMapper,
-                          CustomMapper customMapper) {
+                          CustomMapper customMapper,
+                          RoleMapper roleMapper) {
         this.userMapper = userMapper;
         this.customMapper = customMapper;
+        this.roleMapper = roleMapper;
     }
 
     @GetMapping("/all")
@@ -41,6 +48,12 @@ public class UserController {
                        Model model){
         User user = userMapper.findByUsername(username);
         EditDto editDto = customMapper.userToEditDto(user);
+        List<Role> roles = roleMapper.findAll();
+        List<RoleDto> roleDtoList = new ArrayList<>();
+        for (Role role : roles) {
+            roleDtoList.add(customMapper.roleToRoleDto(role));
+        }
+        model.addAttribute("roleDto",roleDtoList);
         model.addAttribute("editDto",editDto);
         return "user/edit";
     }

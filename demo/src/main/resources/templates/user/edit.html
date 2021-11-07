@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
-    <title>Dashboard Template · Bootstrap v4.6</title>
+    <title>后台管理系统</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
     <!-- Bootstrap core CSS -->
@@ -52,14 +52,10 @@
         </div>
         <div class="form-group">
           <label for="inputRoles" class="col-sm-2 control-label">用户角色:</label>
-          <div class="col-sm-10">
-            <input type="text" name="roles" class="form-control" id="inputRoles" th:value="${editDto.getRoles()}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputAuthority" class="col-sm-2 control-label">用户权限:</label>
-          <div class="col-sm-10">
-            <input type="text" name="authority" class="form-control" id="inputAuthority" value="权限">
+          <div class="col-sm-10" style="font-size: 17px">
+            <input type="checkbox" name="roles" id="inputRoles"
+                   th:each="role:${roleDto}" th:text="${'&nbsp;'+role.getNameZH()+'&nbsp;&nbsp;&nbsp;&nbsp;'}"
+                   th:checked="${#strings.contains(editDto.getRoles(),role.getNameZH())}">
           </div>
         </div>
         <div class="form-group">
@@ -88,16 +84,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> Remember me
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Sign in</button>
+            <button type="submit" class="btn btn-primary">提交</button>
           </div>
         </div>
       </form>

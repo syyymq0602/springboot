@@ -65,11 +65,9 @@ public class RoleController {
     @GetMapping("/edit")
     public String edit(String name,
                        Model model){
-        RoleDto roleDto = new RoleDto();
-        roleDto.setNameEN(name);
-        Role role = customMapper.roleDtoToRole(roleDto);
-        Role result = roleMapper.findByEName(role.getNameEN());
-        model.addAttribute("role",result);
+        Role role = roleMapper.findByEName("ROLE_" + name);
+        RoleDto roleDto = customMapper.roleToRoleDto(role);
+        model.addAttribute("role",roleDto);
         return "role/edit";
     }
 }

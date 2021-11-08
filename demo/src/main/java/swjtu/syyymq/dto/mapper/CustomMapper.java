@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import swjtu.syyymq.dto.EditDto;
 import swjtu.syyymq.dto.RegisterDto;
 import swjtu.syyymq.dto.RoleDto;
+import swjtu.syyymq.dto.UpdateEditDto;
 import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CustomMapper {
+
     @Mappings({
             @Mapping(source = "username",target = "username"),
             @Mapping(source = "password",target = "password",qualifiedByName = "code"),
@@ -44,6 +46,21 @@ public interface CustomMapper {
             @Mapping(target = "nameEN",source = "nameEN",qualifiedByName = "addRole")
     })
     Role roleDtoToRole(RoleDto roleDto);
+
+    @Mappings({
+            @Mapping(target = "id",source = "id"),
+            @Mapping(target = "enabled",qualifiedByName = "ConvertBool"),
+            @Mapping(target = "locked",qualifiedByName = "ConvertBool"),
+            @Mapping(target = "expired",qualifiedByName = "ConvertBool"),
+            @Mapping(target = "credentialsExpire",qualifiedByName = "ConvertBool"),
+            @Mapping(target = "roles",ignore = true)
+    })
+    User updateDtoToUser(UpdateEditDto updateEditDto);
+
+    @Named("ConvertBool")
+    static Boolean ConvertBool(String show){
+        return "是".equals(show);
+    }
 
     @Named("splitRole")
     static String splitRole(String roleName){

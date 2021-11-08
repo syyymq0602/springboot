@@ -20,4 +20,6 @@ public interface UserMapper {
     void updatePassword(User user);
 
     void delete(String name);
+    // TODO:待修改
+    void updateUser(User user);
 }

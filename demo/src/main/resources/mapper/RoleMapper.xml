@@ -20,4 +20,8 @@
     <select id="findByEName" parameterType="String" resultType="Role">
         select * from role where nameEN=#{nameEN}
     </select>
+
+    <select id="findByZName" parameterType="String" resultType="Role">
+        select * from role where nameZh=#{nameZh}
+    </select>
 </mapper>

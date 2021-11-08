@@ -16,5 +16,7 @@ public interface RoleMapper {
 
     List<Role> findAll();
 
-    Role findByEName(String name);
+    Role findByEName(String eName);
+
+    Role findByZName(String zName);
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import swjtu.syyymq.dto.EditDto;
 import swjtu.syyymq.dto.RoleDto;
+import swjtu.syyymq.dto.UpdateEditDto;
 import swjtu.syyymq.dto.mapper.CustomMapper;
 import swjtu.syyymq.entity.Role;
 import swjtu.syyymq.entity.User;
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/edit")
-    @ApiOperation("编辑用户")
+    @ApiOperation("跳转编辑页面")
     public String edit(@RequestParam(name = "name") String username,
                        Model model){
         User user = userMapper.findByUsername(username);
@@ -61,6 +62,22 @@ public class UserController {
     @ApiOperation("删除用户")
     public String delete(@RequestParam(name = "name") String username){
         userMapper.delete(username);
+        return "redirect:/user/all";
+    }
+
+    @PostMapping("/edit")
+    @ApiOperation("更新用户信息")
+    public String update(UpdateEditDto dto){
+        User user = customMapper.updateDtoToUser(dto);
+        List<String> roles = dto.getRoles();
+        List<Role> userRoles = new ArrayList<>();
+        for (String role : roles) {
+            userRoles.add(roleMapper.findByZName(role));
+        }
+        user.setRoles(userRoles);
+        // TODO:表的联合更新
+//        userMapper.updateUser(user);
+        System.out.println(user);
         return "redirect:/user/all";
     }
 }
